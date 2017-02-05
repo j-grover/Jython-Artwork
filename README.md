@@ -1,31 +1,31 @@
-## Synopsis
+## Jython Seasons Artwork
 
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
+An artwork created through image manipulation in Jython. In a way represents the different seasons.
+Jython is an implementation of the Python programming language designed to run on the Java platform.
 
-## Code Example
+**By Jaskirat Grover and Ben Axford.**
 
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+Start with a tree image to create 4 separate images. jointrees code is used to combine the 4 separtely generated images into one.
 
-## Motivation
+### Rainbow image
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+A rainbow effect applied to the leaves of the tree by finding the pixels closest to green in the tree. Each pixels color modified based upon the sin and cosine of its location, creating a rainbow effect.
 
-## Installation
+### Sun Rain image
 
-Provide code examples and explanations of how to get the project.
+A yellow filter applied to half of the image and a yellow sun created out of a circle. The sun had a blur effect added to it. The other half of the image modified to be black and white. Rain drops generated randomly and placed on the image.
 
-## API Reference
+### Light Night image
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+Half of the image darkened by reducing all of the pixels color values, the blue value was reduced by a lower amount to help increase the effect. A moon was generated and blurred. The other half of the image had a negative filter applied with an lightning bolt copied onto the image.
 
-## Tests
+### Snow image
 
-Describe and show how to run the tests with code examples.
+Snow was randomly generated around the tree by producing different sized and coloured circles. The pixels in the ground were converted to white if there value was close to yellow. This created a layer of snow on the ground. The same technique was applied to the tree leaves, creating the effect of snow on the leaves.
 
-## Contributors
+### Resources
 
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
+tree.jpg	-	http://walls4joy.com/wallpaper/665901-landscapes-nature-trees-wheat
 
-## License
+lightning.jpg	-	http://www.polyvore.com/cgi/thing?id=77298487
 
-A short snippet describing the license (MIT, Apache, etc.)
