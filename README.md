@@ -7,7 +7,7 @@ Jython is an implementation of the Python programming language designed to run o
 
 Start with a tree image to create 4 separate images. jointrees code is used to combine the 4 separtely generated images into one.
 
-![alt tag](https://raw.githubusercontent.com/j-grover/Jython-Artwork/master/Final Artwork/artowrk.jpg)
+![Artwork](https://raw.githubusercontent.com/j-grover/Jython-Artwork/master/Final Artwork/artwork.jpg)
 
 ### Rainbow image
 
