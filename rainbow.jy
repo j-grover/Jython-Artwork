@@ -1,0 +1,24 @@
+## Applies colors based on sin & cos of x, y 
+#inputs:  tree picture
+#returns: tree image with color spectrum 
+def colorTree(image):
+  #iterate over pixels within the tree
+  for x in range(388, 950):
+    for y in range(132, 700):
+      pixels = getPixel(image, x, y)  #get source pixel
+      #if distance between green & current pixel is less than 200
+      if (distance(green, getColor(pixels)) < 200):
+        #postive large waves wit varying colors 
+        setRed(pixels, getRed(pixels)*2.3*(1+math.sin(x*0.045)))
+        setGreen(pixels, getGreen(pixels)*1.5*(1+math.sin(y*0.045)))  
+        setBlue(pixels, getBlue(pixels)*9.5*(1+math.cos(x*0.045)))
+  show(image)
+  
+image = makePicture(pickAFile())  #get tree.jpg from Source Images folder
+
+#calculates tree image width & height
+width = getWidth(image)
+height = getHeight(image)
+
+colorTree(image)  #call function
+#writePictureTo(image, "C:\Assignment\rainbow.bmp")  #exports modified image to file specified

@@ -1,0 +1,102 @@
+## Applies a yellow filter to the left half of the image
+#inputs:  tree picture 
+#returns: tree picture with increased yellow
+def yellowFilter(image):
+  #iterate over pixels in left half 
+  for x in range(0, width/2-21):
+    for y in range(height):
+      pixels = getPixel(image, x, y)        #get source pixel
+      setBlue(pixels, getBlue(pixels)*0.5)  #set blue of pixels to half value
+
+## Draws sun & blurs it & pixels around it   
+#inputs:  tree picture
+#returns: tree image with a blurred sun
+def sunBlur(image):
+  #Draw a yellow shade of moon in the top left of tree image   
+  sunColor = makeColor(255, 255, 102)
+  addOvalFilled(image, 60, 80, 100, 100, sunColor)  #size is 100x100
+  #Iterate over pixels around the drawn oval
+  for x in range(40, 200):
+    for y in range(60, 220):
+      #get pixels from center & 4 sides      
+      top = getPixel(image, x, y-1)
+      left = getPixel(image, x-1, y)
+      bottom = getPixel(image, x, y+1)
+      right = getPixel(image, x+1, y)
+      center = getPixel(image, x, y) 
+      #calculate average of RGB values to get new color      
+      newRed=(getRed(top)+ getRed(left)+ getRed(bottom)+getRed(right)+ getRed(center))/5
+      newGreen=(getGreen(top)+ getGreen(left)+getGreen(bottom)+getGreen(right)+getGreen(center))/5
+      newBlue=(getBlue(top)+ getBlue(left)+ getBlue(bottom)+getBlue(right)+ getBlue(center))/5
+      setColor(center, makeColor(newRed, newGreen, newBlue))  #set new average color to pixels 
+
+## Creates a grayscale of the tree image 
+#inputs:  tree picture 
+#returns: grayscale tree image 
+def greyscale(image):
+  #iterate over pixels in right half 
+  for x in range(width/2-21, width):
+    for y in range(height):
+      pixels = getPixel(image, x, y)                                        #get source pixel
+      intensity = (getRed(pixels) + getGreen(pixels) + getBlue(pixels))/3   #calcualte new color of average RGB
+      newColor = makeColor(intensity, intensity, intensity)                 #make new color from average
+      setColor(pixels, newColor)                                            #set averaged color to pixels 
+
+## Draws randomly generated rain (size, location) in tree image 
+#inputs:  tree picture
+#returns: tree image with drawn rain within a certain range
+def randomRain(image):
+  
+  import random
+  rain  =  random.randrange(100, 150 + 1)  #randomly set no of drops to be between 100 & 150
+  
+  for i in range (1, rain + 1):
+    #randomly generates draw location within right half of image
+    skySX1 = random.randrange(width/2, width)
+    skySY1 = random.randrange(0, 82)
+    skyEX1 = random.randrange(1, 9)
+    #randomly generates draw location within top right of image
+    skySX3 = random.randrange(910, width)
+    skySY3 = random.randrange(100, 515)
+    skyEX3 = random.randrange(1, 9)
+    
+    #randomly generate blue color using range step
+    colorValue = random.randrange(102, 204, 51)
+    rainColor = makeColor(colorValue, colorValue, 255)
+    
+    #draws spaced ovals to produce a water drop look 
+    x = 0
+    for i in range(0, 20):
+      addOval(image, skySX1+x, skySY1-x, skyEX1-x, skyEX1-x, rainColor)
+      addOval(image, skySX3+x, skySY3-x, skyEX3-x, skyEX3-x, rainColor)
+      x += 1
+
+## Flips final modified image horizontally 
+#inputs:  tree picture
+#returns: tree picture wit right flipped to left
+def flipImage(image):
+  #iterate over all pixels in image 
+  for y in range(height):
+    for x in range(width):
+      sourcePixel = getPixel(image,width-1-x,y)  #get rightmost pixel 
+      color = getColor(sourcePixel)              #get color of rightmost pixel
+      targetPixel = getPixel(newImage,x,y)       #get leftmost pixel
+      setColor(targetPixel,color)                #set color of leftmost to rightmost pixel
+ 
+image = makePicture(pickAFile())  #get tree.jpg from Source Images folder
+
+#calculates tree image width & height
+width = getWidth(image)
+height = getHeight(image)
+newImage = makeEmptyPicture(width, height)  #create new image of height, width of tree image
+
+#call functions 
+yellowFilter(image)
+sunBlur(image)
+greyscale(image)
+randomRain(image)
+flipImage(image)
+
+#exports modified images to files specified
+#writePictureTo(image, "F:/Assignment/sun_rain.bmp")
+#writePictureTo(newImage, "F:/Assignment/sun_rain_flipped.bmp")

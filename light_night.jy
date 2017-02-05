@@ -1,0 +1,101 @@
+## Copies lightning to tree picture
+#inputs:  lightning picture, tree picture
+#returns: tree image with copied lightning at same location
+def copyLightning(image, image2):
+  #iterate over all pixels in lightning image 
+  for y in range(0, getHeight(image2)):
+    for x in range(0, getWidth(image2)):
+      pixel = getPixel(image2, x, y)         #get source pixel from lighthing image
+      #if color of pixel is within the range of red specified      
+      if 0 <= getRed(pixel) <= 255 and 0 <= getGreen(pixel) <= 180 and 0 <= getBlue(pixel) <= 180:
+        color = getColor(pixel)              #get color of lightning
+        targetPixel = getPixel(image, x, y)  #get the target pixel from tree image
+        setColor(targetPixel, color)         #set the color of tree image to lightning color
+
+## Inverses the colors of the left half of the tree picture 
+#inputs:  tree picture
+#returns: tree image with a negative coloring in range 
+def negative(image):
+  #iterate over pixels in right half of tree image
+  for x in range(0, width/2-21):
+    for y in range(0, height):
+      pixel = getPixel(image, x, y)          #get source pixel from tree image
+      negColor = makeColor(255-getRed(pixel), 255-getGreen(pixel), 255-getBlue(pixel))  #make new inverse color
+      setColor(pixel, negColor)              #set new color to tree image pixels
+
+## Darkens right half of tree image 
+#inputs:  tree picture 
+#returns: tree picture with decreased colors of pixels in right half
+def darken(image):
+  #iterate over pixels in right half of tree image
+  for x in range(width/2-21, width):
+    for y in range(0, height):
+      pixel = getPixel(image, x, y)    #get source pixels from tree image
+      setColor(pixel, makeColor(getRed(pixel)*0.1, getGreen(pixel)*0.1, getBlue(pixel)*0.3))  #set pixels with reduced color
+      
+## Draws randomly generated stars (size, location) in tree image 
+#inputs:  tree picture
+#returns: tree image with drawn stars within a certain range
+def randomStars(image):
+  
+  import random
+  stars  =  random.randrange(20, 30 + 1)  #randomly set no of stars to be between 20 & 30
+  
+  for i in range (1, stars + 1):
+    #randomly generates draw location within right half of image
+    startX = random.randrange(width/2, width)
+    startY = random.randrange(5, 82)
+    #randomly generates draw location within top right of image
+    startX1 = random.randrange(920, width)
+    startY1 = random.randrange(100, 490)
+    
+    #Draws 4 white lines in star pattern in right half 
+    addLine(image, startX, startY, startX, startY+10, white)
+    addLine(image, startX-5, startY+5, startX+5, startY+5, white)
+    addLine(image, startX-5, startY, startX+5, startY+10, white)
+    addLine(image, startX-5, startY+10, startX+5, startY, white)
+    
+    #Draws 4 white lines in star pattern in top right half
+    addLine(image, startX1, startY1, startX1, startY1+10, white)
+    addLine(image, startX1-5, startY1+5, startX1+5, startY1+5, white)
+    addLine(image, startX1-5, startY1, startX1+5, startY1+10, white)
+    addLine(image, startX1-5, startY1+10, startX1+5, startY1, white)
+
+## Draws moon & blurs right half of all pixels   
+#inputs:  tree picture
+#returns: tree image with a moon & blurred pixels  
+def moonBlur(image):
+  #Draw a grey shade of moon in the top right of tree image 
+  moonColor = makeColor(224, 224, 224)
+  addOvalFilled(image, width-130, 60, 100, 100, moonColor)  #size is 100x100
+  #Iterate over pixels in right half of image above ground 
+  for x in range(width/2-21, width-1):
+    for y in range(5, 510):
+      #get pixels from center & 4 sides
+      top = getPixel(image, x, y-1)
+      left = getPixel(image, x-1, y)
+      bottom = getPixel(image, x, y+1)
+      right = getPixel(image, x+1, y)
+      center = getPixel(image, x, y) 
+      #calculate average of RGB values to get new color
+      newRed=(getRed(top)+ getRed(left)+ getRed(bottom)+getRed(right)+ getRed(center))/5
+      newGreen=(getGreen(top)+ getGreen(left)+getGreen(bottom)+getGreen(right)+getGreen(center))/5
+      newBlue=(getBlue(top)+ getBlue(left)+ getBlue(bottom)+getBlue(right)+ getBlue(center))/5
+      setColor(center, makeColor(newRed, newGreen, newBlue))  #set new average color to pixels 
+
+#gets the source images
+image = makePicture(pickAFile())  #get tree.jpg from Source Images folder
+image2 = makePicture(pickAFile()) #get lightning.jpg from Source Images folder
+
+#calculates tree image width & height
+width = getWidth(image)
+height = getHeight(image)
+
+#call functions 
+copyLightning(image, image2)
+negative(image)
+darken(image)
+randomStars(image)
+moonBlur(image)
+
+#writePictureTo(image, "F:/Assignment/light_night.bmp")  #exports modified image to file specified

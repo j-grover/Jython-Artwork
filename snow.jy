@@ -1,0 +1,97 @@
+## Draws randomly generated snow (size, location) in tree image 
+#inputs:  tree picture
+#returns: tree image with drawn snow within a certain range       
+def randomSnow(image):
+  
+  import random
+  snow  =  random.randrange(100, 125 + 1)  #randomly set no of circles to be between 100 & 125
+  
+  for i in range (1, snow + 1):
+    #randomly generates draw location within top of image
+    skySX1 = random.randrange(width)
+    skySY1 = random.randrange(0, 80)
+    skyEX1 = random.randrange(1, 10)
+    
+    #randomly generates draw location within left half of image
+    skySX2 = random.randrange(0, 370)
+    skySY2 = random.randrange(100, 500)
+    skyEX2 = random.randrange(1, 10)
+    
+    #randomly generates draw location within right half of image
+    skySX3 = random.randrange(950, width)
+    skySY3 = random.randrange(100, 500)
+    skyEX3 = random.randrange(1, 10)
+    
+    #randomly generates draw location at bottom of image
+    groundSX = random.randrange(width)
+    groundSY = random.randrange(550, 650)
+    groundEX = random.randrange(5, 10)
+    
+    #randomly generates & sets shade of white color using range step   
+    colorValue = random.randrange(200, 255)
+    snowColor  = makeColor(colorValue, colorValue, colorValue)
+    
+    #Draws circles at locations specified with random color
+    addOvalFilled(image, skySX1, skySY1, skyEX1, skyEX1, snowColor)
+    addOvalFilled(image, skySX2, skySY2, skyEX2, skyEX2, snowColor)
+    addOvalFilled(image, skySX3, skySY3, skyEX3, skyEX3, snowColor)
+    addOvalFilled(image, groundSX, groundSY, groundEX, groundEX, white)
+    
+## Applies a snow effect on the tree using color change
+#inputs:  tree picture 
+#returns: tree picture with white increased in tree
+def snowTree(image):
+  #iterate over pixels within the tree
+  for x in range(388, 916):
+    for y in range(132, 506):
+      pixels = getPixel(image, x, y)  #get source pixel
+      #if distance between green & current pixel is less than 180
+      if (distance(green, getColor(pixels)) < 180):  
+        #increase pixel colors to near white 
+        setRed(pixels, getRed(pixels)*2.3)
+        setGreen(pixels, getGreen(pixels)*1.5)
+        setBlue(pixels, getBlue(pixels)*9.5)
+
+## Applies a snow effect on the ground using color change
+#inputs:  tree picture 
+#returns: tree picture with white increased in ground
+def snowGround(image):
+  #iterate over pixels within the ground
+  for x in range(width):
+    for y in range(525, height):
+      pixels = getPixel(image, x, y)  #get source pixel
+      #if distance between yellow & current pixel is less than 170
+      if (distance(yellow, getColor(pixels)) < 170):
+        #increase pixel colors to near white 
+        setRed(pixels, getRed(pixels)*1.1)
+        setGreen(pixels, getGreen(pixels)*1.7)
+        setBlue(pixels, getBlue(pixels)*4.6)
+
+## Flips final modified image horizontally 
+#inputs:  tree picture
+#returns: tree picture wit right flipped to left
+def flipImage(image):
+  #iterate over all pixels in image 
+  for y in range(height):
+    for x in range(width):
+      sourcePixel = getPixel(image,width-1-x,y)  #get rightmost pixel 
+      color = getColor(sourcePixel)              #get color of rightmost pixel
+      targetPixel = getPixel(newImage,x,y)       #get leftmost pixel
+      setColor(targetPixel,color)                #set color of leftmost to rightmost pixel
+      
+image = makePicture(pickAFile())  #get tree.jpg from Source Images folder
+
+#calculates tree image width & height
+width = getWidth(image)
+height = getHeight(image)
+newImage = makeEmptyPicture(width, height)  #create new image of height, width of tree image
+
+#call functions 
+randomSnow(image)
+snowTree(image)
+snowGround(image)
+flipImage(image)
+
+#exports modified images to files specified
+#writePictureTo(image, "F:/Assignment/snow.bmp")
+#writePictureTo(newImage, "F:/Assignment/snow_flipped.bmp")

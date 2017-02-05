@@ -1,0 +1,32 @@
+## Scales & aligns 4 images together 
+#inputs:  image0, image1, image2, image3
+#returns: canvas with 4 scaled images 
+def joinTrees(image0,image1,image2,image3):
+   
+   #Scales images by half & puts them in order
+   #image0, image1, image3, image 2 clockwise  
+   for y in range(0,(getHeight(image0)/2)):
+      for x in range(0,getWidth(image0)/2):
+        setColor(getPixelAt(canvas,x,y),getColor(getPixelAt(image0,x*2,y*2)))
+    
+   for y in range(0,(getHeight(image0)/2)):
+     for x in range(getWidth(image0)/2,getWidth(image0)-1):
+        setColor(getPixelAt(canvas,x,y),getColor(getPixelAt(image1,(x-(getWidth(image0))/2)*2,y*2)))
+      
+   for y in range((getHeight(image0)/2),(getHeight(image0)-1)):
+     for x in range(0,getWidth(image0)/2):
+        setColor(getPixelAt(canvas,x,y),getColor(getPixelAt(image2,x*2,(y-(getHeight(image0))/2)*2)))
+    
+   for y in range((getHeight(image0)/2),(getHeight(image0)-1)):
+      for x in range(getWidth(image0)/2,getWidth(image0)-1):
+        setColor(getPixelAt(canvas,x,y),getColor(getPixelAt(image3,(x-(getWidth(image0))/2)*2,(y-(getHeight(image0))/2)*2)))
+      
+#gets the source images
+image0 = makePicture(pickAFile())   #get seasons.bmp from Generated Images folder
+image1 = makePicture(pickAFile())   #get sun_rain_flipped.bmp from Generated Images folder
+image2 = makePicture(pickAFile())   #get light_night.bmp from Generated Images folder
+image3 = makePicture(pickAFile())   #get snow_flipped.bmp from Generated Images folder
+
+canvas=makeEmptyPicture(getWidth(image0),getHeight(image0))  #creates empty canvas with dimensions of image0
+joinTrees(image0,image1,image2,image3)  #calls function
+#writePictureTo(canvas, "G:/Assignment/artwork.bmp")         #exports picture 
