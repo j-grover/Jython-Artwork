@@ -7,6 +7,15 @@ Jython is an implementation of the Python programming language designed to run o
 
 Start with a tree image to create 4 separate images. jointrees code is used to combine the 4 separtely generated images into one.
 
+### Resources
+
+lightning.jpg	-	http://www.polyvore.com/cgi/thing?id=77298487
+<img src="https://raw.githubusercontent.com/j-grover/Jython-Artwork/master/Source Images/lightning.jpg" width="200" height="200" />
+
+tree.jpg	-	http://walls4joy.com/wallpaper/665901-landscapes-nature-trees-wheat
+<img src="https://raw.githubusercontent.com/j-grover/Jython-Artwork/master/Source Images/tree.jpg" width="500" height="300" />
+
+### Final Artwork
 ![Artwork](https://raw.githubusercontent.com/j-grover/Jython-Artwork/master/Final Artwork/artwork.jpg)
 
 ### Rainbow image
@@ -24,10 +33,3 @@ Half of the image darkened by reducing all of the pixels color values, the blue 
 ### Snow image
 
 Snow was randomly generated around the tree by producing different sized and coloured circles. The pixels in the ground were converted to white if there value was close to yellow. This created a layer of snow on the ground. The same technique was applied to the tree leaves, creating the effect of snow on the leaves.
-
-### Resources
-
-tree.jpg	-	http://walls4joy.com/wallpaper/665901-landscapes-nature-trees-wheat
-
-lightning.jpg	-	http://www.polyvore.com/cgi/thing?id=77298487
-
