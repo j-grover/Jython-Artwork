@@ -16,7 +16,7 @@ tree.jpg	-	http://walls4joy.com/wallpaper/665901-landscapes-nature-trees-wheat
 <img src="https://raw.githubusercontent.com/j-grover/Jython-Artwork/master/Source Images/tree.jpg" width="500" height="300" />
 
 ### Final Artwork
-![Artwork](https://raw.githubusercontent.com/j-grover/Jython-Artwork/master/Final Artwork/artwork.jpg)
+<img src="https://raw.githubusercontent.com/j-grover/Jython-Artwork/master/Final Artwork/artwork.jpg" width="650" height="400" />
 
 ### Rainbow image
 
